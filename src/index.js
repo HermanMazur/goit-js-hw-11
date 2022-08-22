@@ -13,11 +13,22 @@ let perPage = 0;
 
 refs.searchForm.addEventListener('submit', onSearch);
 
+// function onSearch(e) {
+//   e.preventDefault();
+//   pixabayApiServise.query = e.currentTarget.elements.searchQuery.value;
+//   pixabayApiServise.resetPage();
+//   perPage = 0;
+//   appendPictureMarkup();
+//   clearPictureContainer();
+// }
+
 function onSearch(e) {
   e.preventDefault();
   pixabayApiServise.query = e.currentTarget.elements.searchQuery.value;
   pixabayApiServise.resetPage();
   perPage = 0;
+  console.log('submit');
+  window.addEventListener('scroll', handleScroll);
   appendPictureMarkup();
   clearPictureContainer();
 }
@@ -26,19 +37,37 @@ function clearPictureContainer() {
   refs.pictureContainer.innerHTML = '';
 }
 
-function notifyMessage(hits, totalHits, perPage) {
-  if (hits.length !== 0 && perPage === pixabayApiServise.per_page) {
-    Notify.success(`Hooray! We found ${totalHits} images.`);
+// function notifyMessage(hits, totalHits, perPage) {
+//   if (hits.length !== 0 && perPage === pixabayApiServise.per_page) {
+//     Notify.success(`Hooray! We found ${totalHits} images.`);
     
+//   }
+//   if (hits.length === 0) {
+//     Notify.failure(
+//       'Sorry, there are no images matching your search query. Please try again.'
+//     );
+//     return;
+//   }
+//   if (perPage > totalHits) {
+//     Notify.info(`We're sorry, but you've reached the end of search results.`);
+//     return;
+//   }
+// }
+
+function notifyMessage(hits, totalHits, perPage) {
+  if ((hits.length !== 0) & (perPage === pixabayApiServise.per_page)) {
+    Notify.success(`Hooray! We found ${totalHits} images.`);
   }
-  if (hits.length === 0) {
+  if (hits.length === 0 && totalHits === 0) {
     Notify.failure(
       'Sorry, there are no images matching your search query. Please try again.'
     );
+
     return;
   }
   if (perPage > totalHits) {
     Notify.info(`We're sorry, but you've reached the end of search results.`);
+    window.removeEventListener('scroll', handleScroll);
     return;
   }
 }
@@ -109,11 +138,26 @@ function perPageCounter() {
   perPage += pixabayApiServise.per_page;
 }
 
-window.addEventListener('scroll', () => {
+// window.addEventListener('scroll', () => {
+//   if (
+//     window.scrollY + window.innerHeight >
+//     document.documentElement.scrollHeight
+//   ) {
+//     appendPictureMarkup();
+//   }
+// });
+function handleScroll() {
+  console.log('scroll-start');
   if (
-    window.scrollY + window.innerHeight >=
+    window.scrollY + window.innerHeight >
     document.documentElement.scrollHeight
   ) {
+    console.log('y=', window.scrollY);
+    console.log('H=', window.innerHeight);
+    console.log('sH=', document.documentElement.scrollHeight);
+    console.log('scroll in if');
     appendPictureMarkup();
   }
-});
+}
+
+
