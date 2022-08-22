@@ -29,7 +29,7 @@ function clearPictureContainer() {
 function notifyMessage(hits, totalHits, perPage) {
   if (hits.length !== 0 && perPage === pixabayApiServise.per_page) {
     Notify.success(`Hooray! We found ${totalHits} images.`);
-    // return;
+    return;
   }
   if (hits.length === 0) {
     Notify.failure(
