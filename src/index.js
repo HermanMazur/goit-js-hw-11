@@ -29,13 +29,13 @@ function clearPictureContainer() {
 function notifyMessage(hits, totalHits, perPage) {
   if (hits.length !== 0 && perPage === pixabayApiServise.per_page) {
     Notify.success(`Hooray! We found ${totalHits} images.`);
-    return
+    // return;
   }
   if (hits.length === 0) {
     Notify.failure(
       'Sorry, there are no images matching your search query. Please try again.'
     );
-    
+    return;
   }
   if (perPage > totalHits) {
     Notify.info(`We're sorry, but you've reached the end of search results.`);
