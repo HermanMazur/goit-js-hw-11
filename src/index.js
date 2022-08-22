@@ -90,7 +90,7 @@ async function appendPictureMarkup() {
     console.log(error.message);
   }
   simpleLightbox();
-}
+} 
 
 function renderMarkup(hits) {
   return hits
