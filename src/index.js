@@ -27,7 +27,7 @@ function clearPictureContainer() {
 }
 
 function notifyMessage(hits, totalHits, perPage) {
-  if (hits.length !== '' &&  hits.length !== 0 && perPage === pixabayApiServise.per_page) {
+  if (hits.length !== '' && hits.length !== 0 && perPage === pixabayApiServise.per_page) {
     Notify.success(`Hooray! We found ${totalHits} images.`);
     
   }
