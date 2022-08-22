@@ -55,13 +55,14 @@ function clearPictureContainer() {
 // }
 
 function notifyMessage(hits, totalHits, perPage) {
-  if (hits.length !== 0 && perPage === pixabayApiServise.per_page) {
+  if ((hits.length !== 0) & (perPage === pixabayApiServise.per_page)) {
     Notify.success(`Hooray! We found ${totalHits} images.`);
   }
-  if (hits.length === 0) {
+  if (hits.length === 0 && totalHits === 0) {
     Notify.failure(
       'Sorry, there are no images matching your search query. Please try again.'
     );
+
     return;
   }
   if (perPage > totalHits) {
@@ -139,12 +140,13 @@ function perPageCounter() {
 
 // window.addEventListener('scroll', () => {
 //   if (
-//     window.scrollY + window.innerHeight >
+//     window.scrollY + window.innerHeight >=
 //     document.documentElement.scrollHeight
 //   ) {
 //     appendPictureMarkup();
 //   }
 // });
+
 function handleScroll() {
   console.log('scroll-start');
   if (
